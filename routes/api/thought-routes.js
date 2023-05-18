@@ -4,8 +4,8 @@ const {
   getThoughtById,
   createThought,
   updateThought,
-  deleteThought,
   addReaction,
+  deleteThought,
   removeReaction,
 } = require("../../controllers/thought-controller");
 
