@@ -2,10 +2,12 @@
 const mongoose = require("mongoose");
 // Connect to a Local Deployment on the Default Port
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost:27017/social-network",
+'mongodb://127.0.0.1:27017/social-network',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
   }
 );
 
