@@ -42,8 +42,9 @@ const thoughtController = {
   // create Thought
   // push the created thought's _id to the associated user's thoughts array field
   createThought({ params, body }, res) {
-    Thought.create(body)
-      .then(({ _id }) => {
+    console.log(res)
+    Thought.create(body).then(({ _id }) => {
+      console.log(1)
         return User.findOneAndUpdate(
           { _id: body.userId },
           { $push: { thoughts: _id } },
@@ -51,6 +52,7 @@ const thoughtController = {
         );
       })
       .then((databaseUserData) => {
+        console.log(databaseUserData)
         // can't find the users id
         if (!databaseUserData) {
           return res
@@ -60,12 +62,18 @@ const thoughtController = {
 
         res.json({ message: "Thought successfully created!" });
       })
-      .catch((err) => res.json(err));
+      .catch((err) => {
+        console.log("reach")
+return res.json(err)
+      });
   },
 
   // update Thought by id
   updateThought({ params, body }, res) {
-    Thought.findOneAndUpdate({ _id: params.id }, body, {
+    Thought.findOneAndUpdate(
+      { _id: params.id }, 
+      {$set: body}, 
+      {
       new: true,
       runValidators: true,
     })
